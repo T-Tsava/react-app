@@ -80,6 +80,18 @@ const App = () => {
     setTodos(newTodos);
   };
 
+  // Remove Completed
+  const removeCompleted = () => {
+    const newTodos = [...todos];
+    for (let i = newTodos.length -1; i >= 0; i -= 1){
+      if(newTodos[i].isCompleted == true){
+        newTodos.splice(i,1);
+      }
+
+      setTodos(newTodos);
+    }
+  }
+
   // Task Count
   const CountDos = () => {
     let countOfTasks = 0
@@ -93,6 +105,7 @@ const App = () => {
     });
     return countOfTasks;
   };
+
   // Show All tasks
   const showAll = index => {
     todos.forEach((element, index) => {
@@ -100,6 +113,7 @@ const App = () => {
       elementToHide.classList.remove("displaynone");
     })
   }
+
   // Show Active
   const showActive = index => {
     todos.forEach((element, index) => {
@@ -122,7 +136,6 @@ const App = () => {
         elementToHide.classList.add("displaynone");
       }
     })
-    
   }
 
   return (
@@ -130,7 +143,7 @@ const App = () => {
       <div className='todo-list'>
       <TodoForm addTodo={addTodo} />
       <a className='FilterButtons' onClick={() => completeAllTodo()}>Mark All</a>
-         
+      <a className='FilterButtons' onClick={() => removeCompleted()}>Remove All</a>   
         {todos.map((todo,index) => (
           <Todo key={index} 
                 index={index} 
