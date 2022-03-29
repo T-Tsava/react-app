@@ -28,8 +28,8 @@ const TodoForm = ({ addTodo }) => {
               value={value} 
               onChange={e => setValue(e.target.value)}/>
     </form>
-  )
-}
+  );
+};
 
 const App = () => {
   // To do List
@@ -53,6 +53,6 @@ const App = () => {
       </div>
     </div>
   );
-}
+};
 
 export default App;
