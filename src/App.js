@@ -2,7 +2,7 @@ import React from 'react';
 import './App.css';
 
 // Task 
-const Todo = ({ todo, index, completeTodo}) => {
+const Todo = ({ todo, index, completeTodo, removeTodo}) => {
   return (
     <div id={index} className='todo'
     style={{textDecoration: todo.isCompleted ? "line-through" : ""}}
@@ -10,6 +10,7 @@ const Todo = ({ todo, index, completeTodo}) => {
       {todo.text}
       <div>
         <button onClick={() => completeTodo(index)}>Complete</button>
+        <button onClick={() => removeTodo(index)}>X</button>
       </div>
     </div>
     
@@ -73,6 +74,27 @@ const App = () => {
     setTodos(newTodos);
   };
 
+  // Remove Task
+  const removeTodo = index => {
+    const newTodos = [...todos];
+    newTodos.splice(index,1);
+    setTodos(newTodos);
+  };
+
+  // Task Count
+  const CountDos = () => {
+    let countOfTasks = 0
+    todos.forEach(element => {
+      
+      if (element.isCompleted == true){
+        
+      }else {
+        countOfTasks++
+      }  
+    });
+    return countOfTasks;
+  };
+
   return (
     <div className="app">
       <div className='todo-list'>
@@ -84,10 +106,12 @@ const App = () => {
                 index={index} 
                 todo={todo} 
                 completeTodo={completeTodo}
+                removeTodo={removeTodo}
           />
         ))}
         
       </div>
+      <a><CountDos /></a>
     </div>
   );
 }
