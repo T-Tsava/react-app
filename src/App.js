@@ -1,4 +1,5 @@
 import React from 'react';
+import ReactDOM from 'react-dom';
 import './App.css';
 
 // Task 
@@ -8,7 +9,7 @@ const Todo = ({ todo, index, completeTodo, removeTodo, renameTodo}) => {
     className={todo.isCompleted ? "todo completed" : "todo"}
     >
       <input type="checkbox" className='check_task' onClick={() => completeTodo(index)}/>
-      <a onDoubleClick={() => renameTodo(index)}>{todo.text}</a>
+      <a  onDoubleClick={() => renameTodo(index)}>{todo.text}</a>
       <button className='delete_button' onClick={() => removeTodo(index)}>X</button>
       
     </div>
@@ -33,11 +34,12 @@ const TodoForm = ({ addTodo }) => {
               onChange={e => setValue(e.target.value)}
               placeholder='What needs to be done?'/>
     </form>
-  )
-}
+  );
+};
 
 
 const App = () => {
+  
   // To do List 
   const [todos, setTodos] = React.useState([
     
@@ -48,8 +50,6 @@ const App = () => {
     setTodos(newTodos);
   };
 
-
-
   // Complete Task
   const completeTodo = index => {
     const newTodos = [...todos];
@@ -59,20 +59,25 @@ const App = () => {
       newTodos[index].isCompleted = true;
     }  
     setTodos(newTodos);
-  }
+  };
 
   // Complete All tasks
   const completeAllTodo = () => {
     const newTodos = [...todos];
-    newTodos.forEach((element, index) => {
-      
-      if (element.isCompleted == true){
-        element.isCompleted = false;
-        
-      }else {
-        element.isCompleted = true;
-      }  
+    
+    let checkTodos = newTodos.filter(function (e) {
+      return e.isCompleted > 0;
     });
+
+    if(checkTodos.length != newTodos.length){
+      newTodos.forEach((element, index) => {
+        element.isCompleted = true;
+      });
+    }else {
+      newTodos.forEach((element, index) => {
+        element.isCompleted = false;
+      });
+    } 
     setTodos(newTodos);
   };
 
@@ -90,10 +95,9 @@ const App = () => {
       if(newTodos[i].isCompleted == true){
         newTodos.splice(i,1);
       }
-
       setTodos(newTodos);
-    }
-  }
+    };
+  };
 
   // Rename
    const rnmTodo = (index,value) => {
@@ -129,11 +133,11 @@ const App = () => {
 
   // Show All tasks
   const showAll = () => {
-    todos.forEach((index) => {
+    todos.forEach((element,index) => {
       let elementToHide = document.getElementById(index)
       elementToHide.classList.remove("displaynone");
-    })
-  }
+    });
+  };
 
   // Show Active
   const showActive = () => {
@@ -144,8 +148,8 @@ const App = () => {
       if(element.isCompleted == true){
         elementToHide.classList.add("displaynone");
       }
-    })
-  }
+    });
+  };
 
   // Show Completed
   const showCompleted = () => {
@@ -156,8 +160,8 @@ const App = () => {
       if(element.isCompleted != true){
         elementToHide.classList.add("displaynone");
       }
-    })
-  }
+    });
+  };
 
   return (
     <div className="app">
@@ -189,6 +193,6 @@ const App = () => {
       </div>
     </div>
   );
-}
+};
 
 export default App;
