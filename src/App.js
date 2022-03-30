@@ -58,10 +58,27 @@ const App = () => {
     setTodos(newTodos);
   }
 
+  // Complete All tasks
+  const completeAllTodo = () => {
+    const newTodos = [...todos];
+    newTodos.forEach((element, index) => {
+      
+      if (element.isCompleted == true){
+        element.isCompleted = false;
+        
+      }else {
+        element.isCompleted = true;
+      }  
+    });
+    setTodos(newTodos);
+  };
+
   return (
     <div className="app">
       <div className='todo-list'>
       <TodoForm addTodo={addTodo} />
+      <a className='FilterButtons' onClick={() => completeAllTodo()}>Mark All</a>
+         
         {todos.map((todo,index) => (
           <Todo key={index} 
                 index={index} 
