@@ -13,7 +13,6 @@ const Todo = ({ todo, index, completeTodo, removeTodo}) => {
         <button onClick={() => removeTodo(index)}>X</button>
       </div>
     </div>
-    
   );
 };
 // input field
@@ -94,6 +93,37 @@ const App = () => {
     });
     return countOfTasks;
   };
+  // Show All tasks
+  const showAll = index => {
+    todos.forEach((element, index) => {
+      let elementToHide = document.getElementById(index)
+      elementToHide.classList.remove("displaynone");
+    })
+  }
+  // Show Active
+  const showActive = index => {
+    todos.forEach((element, index) => {
+      let elementToHide = document.getElementById(index)
+      elementToHide.classList.remove("displaynone");
+
+      if(element.isCompleted == true){
+        elementToHide.classList.add("displaynone");
+      }
+    })
+  }
+
+  // Show Completed
+  const showCompleted = index => {
+    todos.forEach((element, index) => {
+      let elementToHide = document.getElementById(index)
+      elementToHide.classList.remove("displaynone");
+
+      if(element.isCompleted != true){
+        elementToHide.classList.add("displaynone");
+      }
+    })
+    
+  }
 
   return (
     <div className="app">
@@ -112,6 +142,9 @@ const App = () => {
         
       </div>
       <a><CountDos /></a>
+      <a className='FilterButtons' onClick={() => showAll()}>All</a>
+      <a className='FilterButtons' onClick={() => showActive()}>Active</a>
+      <a className='FilterButtons' onClick={() => showCompleted()}>Completed</a>
     </div>
   );
 };
