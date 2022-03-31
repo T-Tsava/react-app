@@ -13,7 +13,6 @@ const Todo = ({todos, todo, index, completeTodo, removeTodo, renameTodo, setTodo
     return (
       <div id={index}
       className={filterTasks()}
-      
       >
         <input type="checkbox" className='check_task' onClick={() => completeTodo(index)}/>
         <a  onDoubleClick={() => renameTodo(index)}>{todo.text}</a>

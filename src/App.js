@@ -34,11 +34,11 @@ const App = () => {
     });
 
     if(checkTodos.length != newTodos.length){
-      newTodos.forEach((element, index) => {
+      newTodos.forEach((element) => {
         element.isCompleted = true;
       });
     }else {
-      newTodos.forEach((element, index) => {
+      newTodos.forEach((element) => {
         element.isCompleted = false;
       });
     } 
@@ -69,26 +69,35 @@ const App = () => {
     const newTodos = [...todos];
     newTodos[index].editing = true;
     setTodos(newTodos);
-    // //setTodos(newTodos);
-    // let replace = document.getElementById(index)
-    // replace.innerHTML = ``;
-    
-
   };
-// Rename
 
   // Task Count
   const CountDos = () => {
-    let countOfTasks = 0
+    let countOfTasks = 0;
     todos.forEach(element => {
-      
       if (element.isCompleted == true){
-        
       }else {
         countOfTasks++
-      }  
+      };  
     });
     return countOfTasks;
+  };
+
+  // Counts Completed
+  const CountCompleted = () => {
+    let countOfTasks = 0;
+    todos.forEach(element => {
+      if (element.isCompleted == true){
+        countOfTasks++;
+      }else {
+        
+      };  
+    });
+    if(countOfTasks > 0){
+      return <a className='removeAllButton' onClick={() => removeCompleted()}>Clear Completed</a>;
+    }else {
+      return '';
+    };
   };
 
   // Show All tasks
@@ -110,7 +119,7 @@ const App = () => {
         element.toHide = false;
       }else {
         element.toHide = true;
-      }
+      };
     });
     setTodos(newTodos);
   };
@@ -124,7 +133,7 @@ const App = () => {
         element.toHide = false;
       }else {
         element.toHide = true;
-      }
+      };
     });
     setTodos(newTodos);
   };
@@ -132,33 +141,35 @@ const App = () => {
   return (
     <div className="app">
       <h1 className='title'>todos</h1>
-      <div className='todos'>
-        <div className='todo-list'>
-        <a className='MarkAllButton' onClick={() => completeAllTodo()}></a>
-        <TodoForm addTodo={addTodo} />
-          
-          {todos.map((todo,index) => (
-            <Todo key={index} 
-                  index={index} 
-                  todo={todo} 
-                  completeTodo={completeTodo}
-                  removeTodo={removeTodo}
-                  renameTodo={renameTodo}
-                  todos={todos}
-                  setTodos={setTodos}
-                  
-            />
-          ))}
-          
+      <div className='tasksContainer'>
+        <div className='todos'>
+          <div className='todo-list'>
+          <a className='MarkAllButton' onClick={() => completeAllTodo()}></a>
+          <TodoForm addTodo={addTodo} />
+            
+            {todos.map((todo,index) => (
+              <Todo key={index} 
+                    index={index} 
+                    todo={todo} 
+                    completeTodo={completeTodo}
+                    removeTodo={removeTodo}
+                    renameTodo={renameTodo}
+                    todos={todos}
+                    setTodos={setTodos}
+                    
+              />
+            ))}
+            
+          </div>
+          <a className='CountTasks'><CountDos /> items left</a>
+          <div className='FilterButtons'>
+            <a className='' onClick={() => showAll()}>All</a>
+            <a className='' onClick={() => showActive()}>Active</a>
+            <a className='' onClick={() => showCompleted()}>Completed</a>
+          </div>
+          <CountCompleted />
+          <div className='clear'></div>
         </div>
-        <a className='CountTasks'><CountDos /> items left</a>
-        <div className='FilterButtons'>
-          <a className='' onClick={() => showAll()}>All</a>
-          <a className='' onClick={() => showActive()}>Active</a>
-          <a className='' onClick={() => showCompleted()}>Completed</a>
-        </div>
-        <a className='removeAllButton' onClick={() => removeCompleted()}>Clear Completed</a>
-        <div className='clear'></div>
       </div>
     </div>
   );
