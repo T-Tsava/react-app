@@ -1,6 +1,7 @@
 import React from 'react';
+import RenameForm from '../components/RenameForm.js';
 // Task 
-const Todo = ({ todo, index, completeTodo, removeTodo, renameTodo}) => {
+const Todo = ({todos, todo, index, completeTodo, removeTodo, renameTodo, setTodos }) => {
 
     const filterTasks = () => {
       let showComp = todo.isCompleted ? "todo completed" : "todo";
@@ -16,6 +17,7 @@ const Todo = ({ todo, index, completeTodo, removeTodo, renameTodo}) => {
       >
         <input type="checkbox" className='check_task' onClick={() => completeTodo(index)}/>
         <a  onDoubleClick={() => renameTodo(index)}>{todo.text}</a>
+        <RenameForm todos={todos} todo={todo} index={index}  setTodos={setTodos}/>
         <button className='delete_button' onClick={() => removeTodo(index)}>X</button>
         
       </div>
