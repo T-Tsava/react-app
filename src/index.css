@@ -43,6 +43,11 @@ body {
   box-shadow: inset 0 -2px 1px rgb(0 0 0 / 3%);
   font: 16px 'Helvetica Neue', Helvetica, Arial;
 }
+.renameInput {
+  background: rgba(255, 255, 255, 1);
+  font-size:16px;
+  height:26px;
+}
 .input:active{
   border: none;
   outline:none;

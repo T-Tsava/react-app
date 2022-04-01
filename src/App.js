@@ -1,41 +1,8 @@
 import React from 'react';
+import ReactDOM from 'react-dom';
 import './App.css';
-
-// Task 
-const Todo = ({ todo, index, completeTodo, removeTodo, renameTodo}) => {
-  return (
-    <div id={index}
-    className={todo.isCompleted ? "todo completed" : "todo"}
-    >
-      <input type="checkbox" className='check_task' onClick={() => completeTodo(index)}/>
-      <a onDoubleClick={() => renameTodo(index)}>{todo.text}</a>
-      <button className='delete_button' onClick={() => removeTodo(index)}>X</button>
-      
-    </div>
-  );
-};
-// input field
-const TodoForm = ({ addTodo }) => {
-  const [value,setValue] = React.useState("");
-
-  const handleSubmit = e => {
-    e.preventDefault();
-    if (!value) return;
-    addTodo(value);
-    setValue('');
-  };
-
-  return (
-    <form onSubmit={handleSubmit}>
-      <input  type="text" 
-              className='input' 
-              value={value} 
-              onChange={e => setValue(e.target.value)}
-              placeholder='What needs to be done?'/>
-    </form>
-  );
-};
-
+import Todo from './Todo.js';
+import TodoForm from './TodoForm.js';
 
 const App = () => {
   // To do List 
@@ -59,20 +26,25 @@ const App = () => {
       newTodos[index].isCompleted = true;
     }  
     setTodos(newTodos);
-  }
+  };
 
   // Complete All tasks
   const completeAllTodo = () => {
     const newTodos = [...todos];
-    newTodos.forEach((element, index) => {
-      
-      if (element.isCompleted == true){
-        element.isCompleted = false;
-        
-      }else {
-        element.isCompleted = true;
-      }  
+    
+    let checkTodos = newTodos.filter(function (e) {
+      return e.isCompleted > 0;
     });
+
+    if(checkTodos.length != newTodos.length){
+      newTodos.forEach((element, index) => {
+        element.isCompleted = true;
+      });
+    }else {
+      newTodos.forEach((element, index) => {
+        element.isCompleted = false;
+      });
+    } 
     setTodos(newTodos);
   };
 
@@ -90,10 +62,10 @@ const App = () => {
       if(newTodos[i].isCompleted == true){
         newTodos.splice(i,1);
       }
-
       setTodos(newTodos);
-    }
-  }
+    };
+  };
+
 
   // Rename
    const rnmTodo = (index,value) => {
@@ -108,7 +80,9 @@ const App = () => {
     
     //setTodos(newTodos);
     let replace = document.getElementById(index)
-    replace.innerHTML = `<form onsubmit="${rnmTodo(index)}"'><input type='text' value="${newTodos[index].text}"/></form>`
+
+    replace.innerHTML = `<form onsubmit=""'><input class='input renameInput' type='text' value="${newTodos[index].text}"/></form>`
+
 
     
   };
@@ -127,37 +101,47 @@ const App = () => {
     return countOfTasks;
   };
 
+  const [allTaskStatus, setAllTaskStatus] = React.useState();
+
   // Show All tasks
   const showAll = () => {
-    todos.forEach((index) => {
-      let elementToHide = document.getElementById(index)
-      elementToHide.classList.remove("displaynone");
-    })
-  }
+    const newTodos = [...todos];
+
+    newTodos.forEach((element, index) => {
+      element.toHide = false;
+    });
+    setTodos(newTodos);
+  };
 
   // Show Active
   const showActive = () => {
-    todos.forEach((element, index) => {
-      let elementToHide = document.getElementById(index)
-      elementToHide.classList.remove("displaynone");
+    const newTodos = [...todos];
 
-      if(element.isCompleted == true){
-        elementToHide.classList.add("displaynone");
+
+    newTodos.forEach((element, index) => {
+      if(element.isCompleted != true){
+        element.toHide = false;
+      }else {
+        element.toHide = true;
       }
-    })
-  }
+    });
+    setTodos(newTodos);
+  };
 
   // Show Completed
   const showCompleted = () => {
-    todos.forEach((element, index) => {
-      let elementToHide = document.getElementById(index)
-      elementToHide.classList.remove("displaynone");
+    const newTodos = [...todos];
 
-      if(element.isCompleted != true){
-        elementToHide.classList.add("displaynone");
+
+    newTodos.forEach((element, index) => {
+      if(element.isCompleted == true){
+        element.toHide = false;
+      }else {
+        element.toHide = true;
       }
-    })
-  }
+    });
+    setTodos(newTodos);
+  };
 
   return (
     <div className="app">
