@@ -2,12 +2,12 @@ import React from 'react';
 import './App.css';
 
 // Task 
-const Todo = ({ todo, index, completeTodo, removeTodo}) => {
+const Todo = ({ todo, index, completeTodo, removeTodo, renameTodo}) => {
   return (
     <div id={index} className='todo'
     style={{textDecoration: todo.isCompleted ? "line-through" : ""}}
     >
-      {todo.text}
+      <a onDoubleClick={() => renameTodo(index)}>{todo.text}</a>
       <div>
         <button onClick={() => completeTodo(index)}>Complete</button>
         <button onClick={() => removeTodo(index)}>X</button>
@@ -36,6 +36,7 @@ const TodoForm = ({ addTodo }) => {
   );
 };
 
+
 const App = () => {
   // To do List 
   const [todos, setTodos] = React.useState([
@@ -46,6 +47,8 @@ const App = () => {
     const newTodos = [...todos,{ text }];
     setTodos(newTodos);
   };
+
+
 
   // Complete Task
   const completeTodo = index => {
@@ -91,6 +94,24 @@ const App = () => {
       setTodos(newTodos);
     }
   }
+
+  // Rename
+   const rnmTodo = (index,value) => {
+    const newTodos = [...todos];
+    newTodos[index].text = value;
+    setTodos(newTodos);
+  }
+  // Double click return input
+  const renameTodo = (index) => {
+    const newTodos = [...todos];
+    //newTodos[index].text = '';
+    
+    //setTodos(newTodos);
+    let replace = document.getElementById(index)
+    replace.innerHTML = `<form onsubmit="${rnmTodo(index)}"'><input type='text' value="${newTodos[index].text}"/></form>`
+
+    
+  };
 
   // Task Count
   const CountDos = () => {
@@ -141,6 +162,7 @@ const App = () => {
   return (
     <div className="app">
       <div className='todo-list'>
+      
       <TodoForm addTodo={addTodo} />
       <a className='FilterButtons' onClick={() => completeAllTodo()}>Mark All</a>
       <a className='FilterButtons' onClick={() => removeCompleted()}>Remove All</a>   
@@ -150,6 +172,7 @@ const App = () => {
                 todo={todo} 
                 completeTodo={completeTodo}
                 removeTodo={removeTodo}
+                renameTodo={renameTodo}
           />
         ))}
         
