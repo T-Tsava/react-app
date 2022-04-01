@@ -1,4 +1,5 @@
 import React from 'react';
+import ReactDOM from 'react-dom';
 import './App.css';
 import Todo from './components/Todo.js';
 import TodoForm from './components/TodoForm.js';
@@ -13,6 +14,8 @@ const App = () => {
     const newTodos = [...todos,{ text }];
     setTodos(newTodos);
   };
+
+
 
   // Complete Task
   const completeTodo = index => {
@@ -103,7 +106,6 @@ const App = () => {
   // Show All tasks
   const showAll = () => {
     const newTodos = [...todos];
-
     newTodos.forEach((element, index) => {
       element.toHide = false;
     });
