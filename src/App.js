@@ -4,7 +4,6 @@ import './App.css';
 import Todo from './Todo.js';
 import TodoForm from './TodoForm.js';
 
-
 const App = () => {
   // To do List 
   const [todos, setTodos] = React.useState([
@@ -15,6 +14,8 @@ const App = () => {
     const newTodos = [...todos,{ text }];
     setTodos(newTodos);
   };
+
+
 
   // Complete Task
   const completeTodo = index => {
@@ -65,6 +66,7 @@ const App = () => {
     };
   };
 
+
   // Rename
    const rnmTodo = (index,value) => {
     const newTodos = [...todos];
@@ -78,7 +80,9 @@ const App = () => {
     
     //setTodos(newTodos);
     let replace = document.getElementById(index)
+
     replace.innerHTML = `<form onsubmit=""'><input class='input renameInput' type='text' value="${newTodos[index].text}"/></form>`
+
 
     
   };
@@ -113,6 +117,7 @@ const App = () => {
   const showActive = () => {
     const newTodos = [...todos];
 
+
     newTodos.forEach((element, index) => {
       if(element.isCompleted != true){
         element.toHide = false;
@@ -126,6 +131,7 @@ const App = () => {
   // Show Completed
   const showCompleted = () => {
     const newTodos = [...todos];
+
 
     newTodos.forEach((element, index) => {
       if(element.isCompleted == true){
