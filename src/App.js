@@ -1,8 +1,8 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './App.css';
-import Todo from './Todo.js';
-import TodoForm from './TodoForm.js';
+import Todo from './components/Todo.js';
+import TodoForm from './components/TodoForm.js';
 
 const App = () => {
   // To do List 
@@ -66,26 +66,19 @@ const App = () => {
     };
   };
 
-
-  // Rename
-   const rnmTodo = (index,value) => {
-    const newTodos = [...todos];
-    newTodos[index].text = value;
-    setTodos(newTodos);
-  }
+  
   // Double click return input
   const renameTodo = (index) => {
     const newTodos = [...todos];
-    //newTodos[index].text = '';
+    newTodos[index].editing = true;
+    setTodos(newTodos);
+    // //setTodos(newTodos);
+    // let replace = document.getElementById(index)
+    // replace.innerHTML = ``;
     
-    //setTodos(newTodos);
-    let replace = document.getElementById(index)
 
-    replace.innerHTML = `<form onsubmit=""'><input class='input renameInput' type='text' value="${newTodos[index].text}"/></form>`
-
-
-    
   };
+// Rename
 
   // Task Count
   const CountDos = () => {
@@ -100,9 +93,6 @@ const App = () => {
     });
     return countOfTasks;
   };
-
-  const [allTaskStatus, setAllTaskStatus] = React.useState();
-
   // Show All tasks
   const showAll = () => {
     const newTodos = [...todos];
@@ -117,7 +107,6 @@ const App = () => {
   const showActive = () => {
     const newTodos = [...todos];
 
-
     newTodos.forEach((element, index) => {
       if(element.isCompleted != true){
         element.toHide = false;
@@ -131,8 +120,7 @@ const App = () => {
   // Show Completed
   const showCompleted = () => {
     const newTodos = [...todos];
-
-
+    
     newTodos.forEach((element, index) => {
       if(element.isCompleted == true){
         element.toHide = false;
@@ -158,6 +146,10 @@ const App = () => {
                   completeTodo={completeTodo}
                   removeTodo={removeTodo}
                   renameTodo={renameTodo}
+                  todos={todos}
+                  setTodos={setTodos}
+                  
+
             />
           ))}
           
