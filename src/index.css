@@ -20,6 +20,13 @@ body {
   color: #d9d9d9;
   opacity: 1; /* Firefox */
 }
+
+
+/* ************
+kindly move CSS to another folder under components,
+divide css into several files accordingly to the functional js files
+************** */
+
 .title {
   font-size: 100px;
   font-weight: 100;

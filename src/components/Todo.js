@@ -4,8 +4,8 @@ import RenameForm from '../components/RenameForm.js';
 const Todo = ({todos, todo, index, completeTodo, removeTodo, renameTodo, setTodos }) => {
 
     const filterTasks = () => {
-      let showComp = todo.isCompleted ? "todo completed" : "todo";
-      let showFilters = todo.toHide ? " displaynone" : "";
+      let showComp = todo.isCompleted ? "todo completed" : "todo"; //if the variable doesn't change it's initial value, please declare it with 'const'
+      let showFilters = todo.toHide ? " displaynone" : ""; //if the variable doesn't change it's initial value, please declare it with 'const'
 
       return showComp + showFilters;
     };
