@@ -1,11 +1,12 @@
 import React from 'react';
 import RenameForm from '../components/RenameForm.js';
-// Task 
+import './stylesheets/todo.css';
+// Task
 const Todo = ({todos, todo, index, completeTodo, removeTodo, renameTodo, setTodos }) => {
 
     const filterTasks = () => {
-      let showComp = todo.isCompleted ? "todo completed" : "todo"; //if the variable doesn't change it's initial value, please declare it with 'const'
-      let showFilters = todo.toHide ? " displaynone" : ""; //if the variable doesn't change it's initial value, please declare it with 'const'
+      const showComp = todo.isCompleted ? "todo completed" : "todo";
+      const showFilters = todo.toHide ? " displaynone" : "";
 
       return showComp + showFilters;
     };
@@ -18,7 +19,6 @@ const Todo = ({todos, todo, index, completeTodo, removeTodo, renameTodo, setTodo
         <a  onDoubleClick={() => renameTodo(index)}>{todo.text}</a>
         <RenameForm todos={todos} todo={todo} index={index}  setTodos={setTodos}/>
         <button className='delete_button' onClick={() => removeTodo(index)}>X</button>
-        
       </div>
     );
   };

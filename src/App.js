@@ -1,21 +1,17 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
-import './App.css';
+import './components/stylesheets/todos.css';
 import Todo from './components/Todo.js';
 import TodoForm from './components/TodoForm.js';
+import {useState} from 'react';
 
 const App = () => {
-  // To do List 
-  const [todos, setTodos] = React.useState([
-    
-  ]);
+  // To do List
+  const [todos, setTodos] = useState([]);
   // Add Task
   const addTodo = text => {
     const newTodos = [...todos,{ text }];
     setTodos(newTodos);
   };
-
-
 
   // Complete Task
   const completeTodo = index => {
@@ -24,14 +20,14 @@ const App = () => {
       newTodos[index].isCompleted = false;
     }else {
       newTodos[index].isCompleted = true;
-    }  
+    }
     setTodos(newTodos);
   };
 
   // Complete All tasks
   const completeAllTodo = () => {
     const newTodos = [...todos];
-    
+
     let checkTodos = newTodos.filter(function (e) {
       return e.isCompleted > 0;
     });
@@ -44,7 +40,7 @@ const App = () => {
       newTodos.forEach((element) => {
         element.isCompleted = false;
       });
-    } 
+    }
     setTodos(newTodos);
   };
 
@@ -63,10 +59,10 @@ const App = () => {
         newTodos.splice(i,1);
       }
       setTodos(newTodos);
-    };
+    }
   };
 
-  
+
   // Double click return input
   const renameTodo = (index) => {
     const newTodos = [...todos];
@@ -80,8 +76,8 @@ const App = () => {
     todos.forEach(element => {
       if (element.isCompleted == true){
       }else {
-        countOfTasks++
-      };  
+        countOfTasks++;
+      }
     });
     return countOfTasks;
   };
@@ -93,8 +89,8 @@ const App = () => {
       if (element.isCompleted == true){
         countOfTasks++;
       }else {
-        
-      };  
+
+      }
     });
     if(countOfTasks > 0){
       return <a className='removeAllButton' onClick={() => removeCompleted()}>Clear Completed</a>;
@@ -148,20 +144,20 @@ const App = () => {
           <div className='todo-list'>
           <a className='MarkAllButton' onClick={() => completeAllTodo()}></a>
           <TodoForm addTodo={addTodo} />
-            
+
             {todos.map((todo,index) => (
-              <Todo key={index} 
-                    index={index} 
-                    todo={todo} 
+              <Todo key={index}
+                    index={index}
+                    todo={todo}
                     completeTodo={completeTodo}
                     removeTodo={removeTodo}
                     renameTodo={renameTodo}
                     todos={todos}
                     setTodos={setTodos}
-                    
+
               />
             ))}
-            
+
           </div>
           <a className='CountTasks'><CountDos /> items left</a>
           <div className='FilterButtons'>

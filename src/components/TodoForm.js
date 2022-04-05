@@ -1,21 +1,23 @@
 import React from 'react';
+import {useState} from 'react';
+import './stylesheets/todoForm.css';
 // input field
 const TodoForm = ({ addTodo }) => {
-    const [value,setValue] = React.useState(""); //destructure states: pls use it above like this: import {useState, useEffect} from 'react';
-  // please rename state names above.
+    const [taskValue,setTaskValue] = useState(null);
+
     const handleSubmit = e => {
       e.preventDefault();
-      if (!value) return;
-      addTodo(value);
-      setValue('');
+      if (!taskValue) return;
+      addTodo(taskValue);
+      setTaskValue('');
     };
-  
+
     return (
       <form onSubmit={handleSubmit}>
-        <input  type="text" 
-                className='input addInput' 
-                value={value} 
-                onChange={e => setValue(e.target.value)}
+        <input  type="text"
+                className='input addInput'
+                value={taskValue}
+                onChange={e => setTaskValue(e.target.value)}
                 placeholder='What needs to be done?'/>
       </form>
     );

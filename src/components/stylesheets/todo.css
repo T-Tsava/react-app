@@ -1,0 +1,46 @@
+.todo {
+    position:relative;
+    border-bottom: 1px solid #ededed;
+  }
+  .todo:hover .delete_button {
+    opacity:1;
+  }
+  .todo a {
+    word-break: break-all;
+    padding: 15px 15px 15px 60px;
+    display: block;
+    line-height: 1.2;
+    transition: color 0.4s;
+    font-size:24px;
+    background-image: url('/public/circle.svg');
+    background-position: 5px 7px;
+    background-repeat: no-repeat;
+    color: #4d4d4d;
+  }
+  .completed a{
+    background-image: url('/public/checked.svg');
+    background-repeat: no-repeat;
+    text-decoration: line-through;
+    color: #d9d9d9;
+  }
+  .check_task {
+    position: absolute;
+    width:50px;
+    height:50px;
+    opacity:0;
+  }
+  .delete_button {
+    color:#af5b5e;
+    position: absolute;
+    right:20px;
+    top:15px;
+    opacity:0;
+    font-size:23px;
+  }
+  button {
+      margin: 0;
+      padding: 0;
+      border: 0;
+      background: none;
+      font-size: 100%;
+  }
