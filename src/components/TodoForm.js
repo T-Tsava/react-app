@@ -1,15 +1,16 @@
 import React from 'react';
 import {useState} from 'react';
 import './stylesheets/todoForm.css';
+
 // input field
 const TodoForm = ({ addTodo }) => {
-    const [taskValue,setTaskValue] = useState(null);
+    const [taskValue,setTaskValue] = useState("");
 
     const handleSubmit = e => {
       e.preventDefault();
       if (!taskValue) return;
       addTodo(taskValue);
-      setTaskValue('');
+      setTaskValue("");
     };
 
     return (

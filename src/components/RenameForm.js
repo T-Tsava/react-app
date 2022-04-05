@@ -4,7 +4,7 @@ import './stylesheets/renameForm.css';
 
 // Rename
 const RenameForm = ({todos,todo, setTodos, index }) => {
-    const [renameValue,setRenameValue] = useState(null);
+    const [renameValue,setRenameValue] = useState("");
 
     const newTodos = [...todos];
 
