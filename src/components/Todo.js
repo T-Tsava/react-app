@@ -6,9 +6,8 @@ const Todo = ({todo, completeTodo, removeTodo, renameTodo, updateTodo }) => {
 
     const filterTasks = () => {
       const showComp = todo.completed ? "todo completed" : "todo";
-      const showFilters = todo.toHide ? " displaynone" : "";
 
-      return showComp + showFilters;
+      return showComp;
     };
 
     return (

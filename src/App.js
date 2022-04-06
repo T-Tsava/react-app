@@ -10,12 +10,23 @@ const App = () => {
   const [todos, setTodos] = useState([]);
 
   // List Tasks
-  const listTasks = () => {
-    API.getTasks().then((response) => {
-      const alldata = response
+  // const listTasks = () => {
+  //   API.getTasks().then((response) => {
+  //     const alldata = response
+  //     setTodos(alldata)
+  //   })
+  //   .catch(error => console.error('error'));
+  // }
+
+  const listTasks = async () => {
+    try {
+      const alldata = await API.getTasks()
       setTodos(alldata)
-    })
-    .catch(error => console.error('error'));
+    }
+    catch(error) {
+      console.log("Please, try again later");
+      throw error;
+    }
   }
 
   useEffect(() => {
@@ -30,7 +41,7 @@ const App = () => {
   };
 
   // Complete Task
-  const completeTodo = (id,Tskname,completed) => {
+  const completeTodo = (id,tskName,completed) => {
     let comValue = undefined;
     if(completed == true){
       comValue = false
@@ -38,13 +49,14 @@ const App = () => {
       comValue = true
     }
     const arr = {
-      taskName: Tskname,
+      taskName: tskName,
       completed: comValue
     }
 
     API.updateTask(id,arr);
 
     listTasks();
+
   };
 
   // Complete All tasks

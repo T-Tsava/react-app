@@ -1,5 +1,4 @@
 import axios from 'axios';
-require('dotenv').config();
 
 const API = {
     getTasks: async () => {
@@ -7,8 +6,7 @@ const API = {
         return toDoList;
     },
     postTask: async (addTodo) => {
-        const {data: toDoList} =await axios.post('http://localhost:3005/api/tasks/', {taskName : addTodo});
-        console.log( {taskName : addTodo})
+        await axios.post('http://localhost:3005/api/tasks/', {taskName : addTodo});
     },
     deleteTask: async (taskId) => {
         await axios.delete('http://localhost:3005/api/tasks/' + taskId);
