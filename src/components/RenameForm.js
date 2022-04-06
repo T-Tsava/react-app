@@ -3,10 +3,8 @@ import {useState} from 'react';
 import './stylesheets/renameForm.css';
 
 // Rename
-const RenameForm = ({todos,todo, setTodos, index }) => {
+const RenameForm = ({todo, updateTodo }) => {
     const [renameValue,setRenameValue] = useState("");
-
-    const newTodos = [...todos];
 
     const handleSubmit = e => {
         e.preventDefault();
@@ -14,9 +12,7 @@ const RenameForm = ({todos,todo, setTodos, index }) => {
 
         const woSpaces = renameValue.replace(/\s/g, '');
         if (woSpaces.length) {
-          newTodos[index].text = renameValue;
-          newTodos[index].editing = false;
-          setTodos(newTodos);
+          updateTodo(todo._id,woSpaces);
         } else {
           return;
         }
@@ -24,22 +20,19 @@ const RenameForm = ({todos,todo, setTodos, index }) => {
         setRenameValue('');
     };
 
-    const cancelEditing = (eventCode, index) => {
-
+    const cancelEditing = (eventCode, id, taskName) => {
       if(eventCode.keyCode === 27){
-        newTodos[index].editing = false;
-        setTodos(newTodos);
+        updateTodo(id,taskName);
       }
     };
 
     return (
       <form onSubmit={handleSubmit}>
-
         <input  onChange={e => setRenameValue(e.target.value)}
                 className={todo.editing ? "input renameInput" : "displaynone"}
                 type='text' value={renameValue}
-                placeholder={todo.text}
-                onKeyDown={(e) => cancelEditing(e, index)}
+                placeholder={todo.taskName}
+                onKeyDown={(e) => cancelEditing(e, todo._id,todo.taskName)}
                 />
       </form>
     );

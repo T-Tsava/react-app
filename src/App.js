@@ -2,79 +2,99 @@ import React from 'react';
 import './components/stylesheets/todos.css';
 import Todo from './components/Todo.js';
 import TodoForm from './components/TodoForm.js';
-import {useState} from 'react';
+import {useState, useEffect} from 'react';
+import API from './api/axiosApi';
 
 const App = () => {
   // To do List
   const [todos, setTodos] = useState([]);
+
+  // List Tasks
+  const listTasks = () => {
+    API.getTasks().then((response) => {
+      const alldata = response
+      setTodos(alldata)
+    })
+    .catch(error => console.error('error'));
+  }
+
+  useEffect(() => {
+    listTasks();
+  }, []);
+
   // Add Task
   const addTodo = text => {
-    const newTodos = [...todos,{ text }];
-    setTodos(newTodos);
+    API.postTask(text)
+
+    listTasks();
   };
 
   // Complete Task
-  const completeTodo = index => {
-    const newTodos = [...todos];
-    if (newTodos[index].isCompleted == true){
-      newTodos[index].isCompleted = false;
+  const completeTodo = (id,Tskname,completed) => {
+    let comValue = undefined;
+    if(completed == true){
+      comValue = false
     }else {
-      newTodos[index].isCompleted = true;
+      comValue = true
     }
-    setTodos(newTodos);
+    const arr = {
+      taskName: Tskname,
+      completed: comValue
+    }
+
+    API.updateTask(id,arr);
+
+    listTasks();
   };
 
   // Complete All tasks
   const completeAllTodo = () => {
-    const newTodos = [...todos];
+    API.completeAllTasks();
 
-    let checkTodos = newTodos.filter(function (e) {
-      return e.isCompleted > 0;
-    });
-
-    if(checkTodos.length != newTodos.length){
-      newTodos.forEach((element) => {
-        element.isCompleted = true;
-      });
-    }else {
-      newTodos.forEach((element) => {
-        element.isCompleted = false;
-      });
-    }
-    setTodos(newTodos);
+    listTasks();
   };
 
   // Remove Task
-  const removeTodo = index => {
-    const newTodos = [...todos];
-    newTodos.splice(index,1);
-    setTodos(newTodos);
+  const removeTodo = id => {
+    API.deleteTask(id);
+
+    listTasks();
   };
 
   // Remove Completed
   const removeCompleted = () => {
-    const newTodos = [...todos];
-    for (let i = newTodos.length -1; i >= 0; i -= 1){
-      if(newTodos[i].isCompleted == true){
-        newTodos.splice(i,1);
-      }
-      setTodos(newTodos);
-    }
+    API.removeCompletedTasks();
+    listTasks();
   };
 
 
   // Double click return input
-  const renameTodo = (index) => {
-    const newTodos = [...todos];
-    newTodos[index].editing = true;
-    setTodos(newTodos);
+  const renameTodo = (id,Tskname) => {
+    const arr = {
+      taskName: Tskname,
+      editing: true
+    }
+
+    API.updateTask(id,arr);
+    listTasks();
+
   };
+
+  const updateTodo = (id,name) => {
+    const arr = {
+      taskName: name,
+      editing: false
+    }
+
+    API.updateTask(id,arr);
+    listTasks();
+  }
 
   // Task Count
   const CountDos = () => {
     let countOfTasks = 0;
     todos.forEach(element => {
-      if (element.isCompleted == true){
+      if (element.completed == true){
       }else {
         countOfTasks++;
       }
@@ -86,7 +106,7 @@ const App = () => {
   const CountCompleted = () => {
     let countOfTasks = 0;
     todos.forEach(element => {
-      if (element.isCompleted == true){
+      if (element.completed == true){
         countOfTasks++;
       }else {
 
@@ -99,42 +119,15 @@ const App = () => {
     };
   };
 
-  // Show All tasks
-  const showAll = () => {
-    const newTodos = [...todos];
-    newTodos.forEach((element, index) => {
-      element.toHide = false;
-    });
-    setTodos(newTodos);
+  // Filter Tasks
+  const filterTasksBy = (FilterStatus) => {
+    API.filterTasks(FilterStatus).then((response) => {
+      const alldata = response
+      setTodos(alldata)
+    })
+    .catch(error => console.error('error'));
   };
 
-  // Show Active
-  const showActive = () => {
-    const newTodos = [...todos];
-
-    newTodos.forEach((element, index) => {
-      if(element.isCompleted != true){
-        element.toHide = false;
-      }else {
-        element.toHide = true;
-      };
-    });
-    setTodos(newTodos);
-  };
-
-  // Show Completed
-  const showCompleted = () => {
-    const newTodos = [...todos];
-
-    newTodos.forEach((element, index) => {
-      if(element.isCompleted == true){
-        element.toHide = false;
-      }else {
-        element.toHide = true;
-      };
-    });
-    setTodos(newTodos);
-  };
 
   return (
     <div className="app">
@@ -145,25 +138,23 @@ const App = () => {
           <a className='MarkAllButton' onClick={() => completeAllTodo()}></a>
           <TodoForm addTodo={addTodo} />
 
-            {todos.map((todo,index) => (
-              <Todo key={index}
-                    index={index}
+            {todos.map((todo) => (
+
+              <Todo key={todo._id}
                     todo={todo}
                     completeTodo={completeTodo}
                     removeTodo={removeTodo}
                     renameTodo={renameTodo}
                     todos={todos}
-                    setTodos={setTodos}
-
+                    updateTodo={updateTodo}
               />
             ))}
-
           </div>
           <a className='CountTasks'><CountDos /> items left</a>
           <div className='FilterButtons'>
-            <a className='' onClick={() => showAll()}>All</a>
-            <a className='' onClick={() => showActive()}>Active</a>
-            <a className='' onClick={() => showCompleted()}>Completed</a>
+            <a className='' onClick={() => filterTasksBy('all')}>All</a>
+            <a className='' onClick={() => filterTasksBy('active')}>Active</a>
+            <a className='' onClick={() => filterTasksBy('completed')}>Completed</a>
           </div>
           <CountCompleted />
           <div className='clear'></div>

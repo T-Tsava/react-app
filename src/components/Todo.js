@@ -2,23 +2,23 @@ import React from 'react';
 import RenameForm from '../components/RenameForm.js';
 import './stylesheets/todo.css';
 // Task
-const Todo = ({todos, todo, index, completeTodo, removeTodo, renameTodo, setTodos }) => {
+const Todo = ({todo, completeTodo, removeTodo, renameTodo, updateTodo }) => {
 
     const filterTasks = () => {
-      const showComp = todo.isCompleted ? "todo completed" : "todo";
+      const showComp = todo.completed ? "todo completed" : "todo";
       const showFilters = todo.toHide ? " displaynone" : "";
 
       return showComp + showFilters;
     };
 
     return (
-      <div id={index}
+      <div id={todo._id}
       className={filterTasks()}
       >
-        <input type="checkbox" className='check_task' onClick={() => completeTodo(index)}/>
-        <a  onDoubleClick={() => renameTodo(index)}>{todo.text}</a>
-        <RenameForm todos={todos} todo={todo} index={index}  setTodos={setTodos}/>
-        <button className='delete_button' onClick={() => removeTodo(index)}>X</button>
+        <input type="checkbox" className='check_task' onClick={() => completeTodo(todo._id,todo.taskName,todo.completed)}/>
+        <a  onDoubleClick={() => renameTodo(todo._id,todo.taskName)}>{todo.taskName}</a>
+        <RenameForm todo={todo} updateTodo={updateTodo} />
+        <button className='delete_button' onClick={() => removeTodo(todo._id)}>X</button>
       </div>
     );
   };
