@@ -20,33 +20,6 @@ body {
   color: #d9d9d9;
   opacity: 1; /* Firefox */
 }
-
-
-/* ************
-kindly move CSS to another folder under components,
-divide css into several files accordingly to the functional js files
-************** */
-
-.title {
-  font-size: 100px;
-  font-weight: 100;
-  text-align: center;
-  color: rgba(175, 47, 47, 0.15);
-  padding:0;
-  margin:0;
-}
-.tasksContainer {
-  width: 550px;
-  margin:0 auto;
-  box-shadow: 0 2px 4px 0 rgb(0 0 0 / 20%), 0 25px 50px 0 rgb(0 0 0 / 10%);
-}
-.todos {
-  width:550px;
-  margin:0 auto;
-  position: relative;
-  background-color:white;
-  box-shadow: 0 1px 1px rgb(0 0 0 / 20%), 0 8px 0 -3px #f6f6f6, 0 9px 1px -3px rgb(0 0 0 / 20%), 0 16px 0 -6px #f6f6f6, 0 17px 2px -6px rgb(0 0 0 / 20%);
-}
 .input {
   width:425px;
   padding: 16px 16px 16px 60px;
@@ -55,17 +28,6 @@ divide css into several files accordingly to the functional js files
   box-shadow: inset 0 -2px 1px rgb(0 0 0 / 3%);
   font: 16px 'Helvetica Neue', Helvetica, Arial;
 }
-.addInput {
-  height:33.59px;
-}
-.renameInput {
-  background: rgba(255, 255, 255, 1);
-  font-size:16px;
-  height:26px;
-  position: absolute;
-  top:0;
-  left:0;
-}
 .input:active{
   border: none;
   outline:none;
@@ -73,94 +35,8 @@ divide css into several files accordingly to the functional js files
 .input:onclick {
   outline:none
 }
-.todo {
-  position:relative;
-  border-bottom: 1px solid #ededed;
-}
-.todo:hover .delete_button {
-  opacity:1;
-}
-.todo a {
-  word-break: break-all;
-  padding: 15px 15px 15px 60px;
-  display: block;
-  line-height: 1.2;
-  transition: color 0.4s;
-  font-size:24px;
-  background-image: url('../public/circle.svg');
-  background-position: 5px 7px;
-  background-repeat: no-repeat;
-  color: #4d4d4d;
-}
-.completed a{
-  background-image: url('../public/checked.svg');
-  background-repeat: no-repeat;
-  text-decoration: line-through;
-  color: #d9d9d9;
-}
-.check_task {
-  position: absolute;
-  width:50px;
-  height:50px;
-  opacity:0;
-}
-.delete_button {
-  color:#af5b5e;
-  position: absolute;
-  right:20px;
-  top:15px;
-  opacity:0;
-  font-size:23px;
-}
-button {
-    margin: 0;
-    padding: 0;
-    border: 0;
-    background: none;
-    font-size: 100%;
-   
-}
-.MarkAllButton {
-  background-image: url('../public/down.png');
-  background-repeat: no-repeat;
-  position:absolute;
-  top:15px;
-  left:15px;
-  width: 25px;
-  height: 25px; 
-}
-.CountTasks {
-  display: block;
-  color:#777;
-  padding: 10px 15px;
-  width: 100px;
-  float: left;
-  font-size:14px;
-}
-.FilterButtons {
-  float: left;
-  margin:10px 0 0 30px;
-  font-size:14px;
-}
-.FilterButtons a {
-  padding:3px 7px;
-  display: inline;
-  color:#777;
-  border:1px solid white;
-  border-radius:5px;
-}
-.FilterButtons a:hover {
-  border-color: rgba(175, 47, 47, 0.1);
-}
-.FilterButtons a:active {
-  border-color: rgba(175, 47, 47, 0.2);
-}
-.removeAllButton {
-  float: right;
-  font-size:14px;
-  color:#777;
-  margin:10px 10px 0 0;
-}
-.removeAllButton:hover {
-  text-decoration: underline;
-}
+
+/* ************
+
+************** */
+

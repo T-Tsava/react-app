@@ -1,40 +1,43 @@
 import React from 'react';
+import {useState} from 'react';
+import './stylesheets/renameForm.css';
+
 // Rename
 const RenameForm = ({todos,todo, setTodos, index }) => {
-    const [value,setValue] = React.useState(""); //destructure states: pls use it above like this: import {useState, useEffect} from 'react';
-	// please rename state names above.
+    const [renameValue,setRenameValue] = useState("");
+
     const newTodos = [...todos];
 
     const handleSubmit = e => {
         e.preventDefault();
-        if (!value) return;
+        if (!renameValue) return;
 
-        let woSpaces = value.replace(/\s/g, ''); //if the variable doesn't change it's initial value, please declare it with 'const'
-        if (woSpaces.length > 0) { // there's no need to set > 0 for this value. Can you explain why is that?
-          newTodos[index].text = value;
+        const woSpaces = renameValue.replace(/\s/g, '');
+        if (woSpaces.length) {
+          newTodos[index].text = renameValue;
           newTodos[index].editing = false;
           setTodos(newTodos);
         } else {
           return;
-        };
+        }
 
-        setValue('');
+        setRenameValue('');
     };
 
     const cancelEditing = (eventCode, index) => {
-     
+
       if(eventCode.keyCode === 27){
         newTodos[index].editing = false;
         setTodos(newTodos);
       }
-    }
-  
+    };
+
     return (
       <form onSubmit={handleSubmit}>
-        
-        <input  onChange={e => setValue(e.target.value)} 
-                className={todo.editing ? "input renameInput" : "displaynone"} 
-                type='text' value={value} 
+
+        <input  onChange={e => setRenameValue(e.target.value)}
+                className={todo.editing ? "input renameInput" : "displaynone"}
+                type='text' value={renameValue}
                 placeholder={todo.text}
                 onKeyDown={(e) => cancelEditing(e, index)}
                 />
