@@ -9,19 +9,11 @@ const App = () => {
   // To do List
   const [todos, setTodos] = useState([]);
 
-  // List Tasks
-  // const listTasks = () => {
-  //   API.getTasks().then((response) => {
-  //     const alldata = response
-  //     setTodos(alldata)
-  //   })
-  //   .catch(error => console.error('error'));
-  // }
-
   const listTasks = async () => {
     try {
       const alldata = await API.getTasks()
       setTodos(alldata)
+
     }
     catch(error) {
       console.log("Please, try again later");
@@ -34,14 +26,14 @@ const App = () => {
   }, []);
 
   // Add Task
-  const addTodo = text => {
-    API.postTask(text)
+  const addTodo = async text => {
+    await API.postTask(text)
 
     listTasks();
   };
 
   // Complete Task
-  const completeTodo = (id,tskName,completed) => {
+  const completeTodo = async (id,Tskname,completed) => {
     let comValue = undefined;
     if(completed == true){
       comValue = false
@@ -49,56 +41,51 @@ const App = () => {
       comValue = true
     }
     const arr = {
-      taskName: tskName,
+      taskName: Tskname,
       completed: comValue
     }
 
-    API.updateTask(id,arr);
-
+    await API.updateTask(id,arr);
     listTasks();
-
   };
 
   // Complete All tasks
-  const completeAllTodo = () => {
-    API.completeAllTasks();
-
+  const completeAllTodo =  async () => {
+    await  API.completeAllTasks();
     listTasks();
   };
 
   // Remove Task
-  const removeTodo = id => {
-    API.deleteTask(id);
-
+  const removeTodo = async id => {
+    await API.deleteTask(id);
     listTasks();
   };
 
   // Remove Completed
-  const removeCompleted = () => {
-    API.removeCompletedTasks();
+  const removeCompleted = async () => {
+    await API.removeCompletedTasks();
     listTasks();
   };
 
 
   // Double click return input
-  const renameTodo = (id,Tskname) => {
+  const renameTodo = async (id,Tskname) => {
     const arr = {
       taskName: Tskname,
       editing: true
     }
 
-    API.updateTask(id,arr);
+    await API.updateTask(id,arr);
     listTasks();
-
   };
 
-  const updateTodo = (id,name) => {
+  const updateTodo = async (id,name) => {
     const arr = {
       taskName: name,
       editing: false
     }
 
-    API.updateTask(id,arr);
+    await API.updateTask(id,arr);
     listTasks();
   }
 
@@ -120,8 +107,6 @@ const App = () => {
     todos.forEach(element => {
       if (element.completed == true){
         countOfTasks++;
-      }else {
-
       }
     });
     if(countOfTasks > 0){
@@ -132,14 +117,13 @@ const App = () => {
   };
 
   // Filter Tasks
-  const filterTasksBy = (FilterStatus) => {
-    API.filterTasks(FilterStatus).then((response) => {
+  const filterTasksBy = async (FilterStatus) => {
+    await API.filterTasks(FilterStatus).then((response) => {
       const alldata = response
       setTodos(alldata)
     })
     .catch(error => console.error('error'));
   };
-
 
   return (
     <div className="app">
