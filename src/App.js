@@ -27,7 +27,7 @@ const App = () => {
 
   // Add Task
   const addTodo = async text => {
-    await API.postTask(text)
+    await API.postTask(text);
 
     listTasks();
   };
@@ -35,7 +35,7 @@ const App = () => {
   // Complete Task
   const completeTodo = async (id,Tskname,completed) => {
     let comValue = undefined;
-    if(completed == true){
+    if(completed === true){
       comValue = false
     }else {
       comValue = true
@@ -93,7 +93,7 @@ const App = () => {
   const CountDos = () => {
     let countOfTasks = 0;
     todos.forEach(element => {
-      if (element.completed == true){
+      if (element.completed === true){
       }else {
         countOfTasks++;
       }
@@ -105,7 +105,7 @@ const App = () => {
   const CountCompleted = () => {
     let countOfTasks = 0;
     todos.forEach(element => {
-      if (element.completed == true){
+      if (element.completed === true){
         countOfTasks++;
       }
     });
