@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const APIURL = 'https://node-todo-api-heroku-websmart.herokuapp.com/api/tasks';
+const APIURL = 'https://node-todo-api-heroku-websmart.herokuapp.com/api/tasks/';
 
 const API = {
     getTasks: async () => {
