@@ -69,14 +69,10 @@ const App = () => {
 
 
   // Double click return input
-  const renameTodo = async (id,Tskname) => {
-    const arr = {
-      taskName: Tskname,
-      editing: true
-    }
-
-    await API.updateTask(id,arr);
-    listTasks();
+  const renameTodo = async (index) => {
+    const newTodos = [...todos]
+    newTodos[index].editing = true;
+    setTodos(newTodos);
   };
 
   const updateTodo = async (id,name) => {
@@ -134,7 +130,7 @@ const App = () => {
           <a className='MarkAllButton' onClick={() => completeAllTodo()}></a>
           <TodoForm addTodo={addTodo} />
 
-            {todos.map((todo) => (
+            {todos.map((todo, index) => (
 
               <Todo key={todo._id}
                     todo={todo}
@@ -143,6 +139,7 @@ const App = () => {
                     renameTodo={renameTodo}
                     todos={todos}
                     updateTodo={updateTodo}
+                    index={index}
               />
             ))}
           </div>
