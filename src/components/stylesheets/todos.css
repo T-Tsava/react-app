@@ -47,11 +47,15 @@
     color:#777;
     border:1px solid white;
     border-radius:5px;
+    margin:0 3px;
   }
   .FilterButtons a:hover {
     border-color: rgba(175, 47, 47, 0.1);
   }
   .FilterButtons a:active {
+    border-color: rgba(175, 47, 47, 0.2);
+  }
+  .FilterButtons .activeFilter {
     border-color: rgba(175, 47, 47, 0.2);
   }
   .removeAllButton {
