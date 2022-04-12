@@ -34,8 +34,13 @@ const API = {
         const {data: toDoList} = await axios.get(APIURLusers);
         return toDoList;
     },
+    userLogin: async (loginCredentials) => {
+        const {data: userData} = await axios.post(`${APIURLusers}login/`,{loginCredentials});
+        return userData;
+    },
     postUser: async (addUser) => {
-       await axios.post(APIURLusers, {addUser});
+        console.log(addUser);
+        await axios.post(`${APIURLusers}signup/`, {addUser});
     },
     deleteUser: async (userId) => {
         await axios.delete(APIURLusers + userId);
