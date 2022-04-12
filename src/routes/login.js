@@ -14,7 +14,7 @@ const Login = () => {
       setMessage(`Login Succesfull!`);
       reset();
     } catch (error) {
-      setMessage('Something went fron try again!');
+      setMessage('Something went wrong try again!');
     }
   };
   return (

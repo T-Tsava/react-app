@@ -35,8 +35,8 @@ const API = {
         return toDoList;
     },
     userLogin: async (loginCredentials) => {
-        const {data: userData} = await axios.post(`${APIURLusers}login/`,{loginCredentials});
-        return userData;
+        const {data: userData} = await axios.post(`${APIURLusers}login/`,loginCredentials);
+        console.log(userData);
     },
     postUser: async (addUser) => {
         await axios.post(`${APIURLusers}signup/`, addUser);
