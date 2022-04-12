@@ -39,8 +39,7 @@ const API = {
         return userData;
     },
     postUser: async (addUser) => {
-        console.log(addUser);
-        await axios.post(`${APIURLusers}signup/`, {addUser});
+        await axios.post(`${APIURLusers}signup/`, addUser);
     },
     deleteUser: async (userId) => {
         await axios.delete(APIURLusers + userId);

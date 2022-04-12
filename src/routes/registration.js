@@ -14,7 +14,6 @@ const Registration = () => {
       setMessage(`thank you ${data.firstName} your registration is completed!`);
       reset();
     } catch (error) {
-      console.log(error);
       setMessage('Email already exists');
     }
   };
