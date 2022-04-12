@@ -1,8 +1,11 @@
 import axios from 'axios';
 
-const APIURL = 'https://node-todo-api-heroku-websmart.herokuapp.com/api/tasks/';
+const APIURLLOCAL = 'https://node-todo-api-heroku-websmart.herokuapp.com/api/tasks/';
+const APIURL = 'http://localhost:3005/api/tasks/';
+const APIURLusers = 'http://localhost:3005/api/users/';
 
 const API = {
+    // Tasks
     getTasks: async () => {
         const {data: toDoList} = await axios.get(APIURL);
         return toDoList;
@@ -25,6 +28,20 @@ const API = {
     filterTasks: async (filterName) => {
         const {data: toDoList} = await axios.get(`${APIURL}/filter/`+ filterName);
         return toDoList;
+    },
+    // Users
+    getUsers: async () => {
+        const {data: toDoList} = await axios.get(APIURLusers);
+        return toDoList;
+    },
+    postUser: async (addUser) => {
+       await axios.post(APIURLusers, {addUser});
+    },
+    deleteUser: async (userId) => {
+        await axios.delete(APIURLusers + userId);
+    },
+    updateUser: async (userId, updateTodoArr) => {
+        await axios.patch(APIURLusers + userId, updateTodoArr);
     },
 }
 export default API;
