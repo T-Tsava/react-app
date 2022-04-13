@@ -1,6 +1,7 @@
 import React from 'react';
 import './stylesheets/todos.css';
 import Todo from './Todo.js';
+import { useSelector } from 'react-redux';
 import TodoForm from './TodoForm.js';
 import {useState, useEffect} from 'react';
 import API from '../api/axiosApi';
@@ -8,7 +9,11 @@ import API from '../api/axiosApi';
 const Home = () => {
     // To do List
   const [todos, setTodos] = useState([]);
-
+  const currentUser = useSelector(state => state.userInfo)
+  let userid = undefined;
+  if(currentUser[0]) {
+    userid = currentUser[0].id;
+  }
   const listTasks = async () => {
     try {
       const alldata = await API.getTasks()
@@ -27,7 +32,7 @@ const Home = () => {
 
   // Add Task
   const addTodo = async text => {
-    await API.postTask(text);
+    await API.postTask(text,userid);
 
     listTasks();
   };
@@ -136,6 +141,7 @@ const Home = () => {
       setFilters(filterChange);
     }
   };
+
     return (
     <div className='container'>
         <h1 className='title'>todos</h1>

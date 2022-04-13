@@ -1,18 +1,26 @@
-import {useState} from 'react';
+import React,{useState} from 'react';
+import { useNavigate } from 'react-router-dom';
+import { useSelector, useDispatch } from 'react-redux';
+import { addUser } from "../js/actions/index";
 import { useForm } from "react-hook-form";
 import API from '../api/axiosApi';
 
-const Login = ( token ) => {
+
+const Login = ( ) => {
   const [message, setMessage] = useState('');
   const { register, handleSubmit, reset } = useForm({ shouldUseNativeValidation: true });
+  const navigate = useNavigate();
+  const dispatch = useDispatch()
 
   const onSubmit = async (data, e) => {
     e.preventDefault();
 
     try {
-      await API.userLogin(data);
+      const loginData = await API.userLogin(data);
       setMessage(`Login Succesfull!`);
       reset();
+      dispatch(addUser({token: loginData.token,id:loginData.body._id}))
+      navigate('/');
     } catch (error) {
       setMessage('Something went wrong try again!');
     }
@@ -21,6 +29,7 @@ const Login = ( token ) => {
   return (
     <div className='container'>
     <h1 className='title'>Login</h1>
+
     <p className='registrationCompleted'>{message}</p>
         <div className='tasksContainer'>
           <form onSubmit={handleSubmit(onSubmit)}>
