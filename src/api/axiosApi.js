@@ -1,4 +1,5 @@
 import axios from 'axios';
+import Login from '../components/login';
 
 const APIURLLOCAL = 'https://node-todo-api-heroku-websmart.herokuapp.com/api/tasks/';
 const APIURL = 'http://localhost:3005/api/tasks/';
@@ -36,7 +37,6 @@ const API = {
     },
     userLogin: async (loginCredentials) => {
         const {data: userData} = await axios.post(`${APIURLusers}login/`,loginCredentials);
-        console.log(userData);
     },
     postUser: async (addUser) => {
         await axios.post(`${APIURLusers}signup/`, addUser);
