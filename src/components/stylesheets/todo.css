@@ -5,7 +5,7 @@
   .todo:hover .delete_button {
     opacity:1;
   }
-  .todo a {
+  .todo p {
     word-break: break-all;
     padding: 15px 15px 15px 60px;
     display: block;
@@ -16,8 +16,9 @@
     background-position: 5px 7px;
     background-repeat: no-repeat;
     color: #4d4d4d;
+    margin:0;
   }
-  .completed a{
+  .completed p{
     background-image: url('./icons/checked.svg');
     background-repeat: no-repeat;
     text-decoration: line-through;

@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const APIURLLOCAL = 'https://node-todo-api-heroku-websmart.herokuapp.com/api/tasks/';
+//const APIURLLOCAL = 'https://node-todo-api-heroku-websmart.herokuapp.com/api/tasks/';
 const APIURL = 'http://localhost:3005/api/tasks/';
 const APIURLusers = 'http://localhost:3005/api/users/';
 
@@ -13,14 +13,28 @@ const API = {
     postTask: async (addTodo, userid) => {
         await axios.post(APIURL, {taskName : addTodo, userid : userid});
     },
-    deleteTask: async (taskId) => {
-        await axios.delete(APIURL + taskId);
+    deleteTask: async (taskId, userid) => {
+        await axios.delete(APIURL + taskId,{
+            headers: {
+              Authorization: userid
+            },
+            data: {
+                userid : userid
+            }
+          });
     },
     completeAllTasks: async () => {
         await axios.patch(APIURL);
     },
-    removeCompletedTasks: async () => {
-        await axios.delete(APIURL);
+    removeCompletedTasks: async (userid) => {
+        await axios.delete(APIURL, {
+            headers: {
+              Authorization: userid
+            },
+            data: {
+                userid : userid
+            }
+          });
     },
     updateTask: async (taskId, updateTodoArr) => {
         await axios.patch(APIURL + taskId, updateTodoArr);

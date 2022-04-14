@@ -42,7 +42,7 @@
     margin:10px 0 0 30px;
     font-size:14px;
   }
-  .FilterButtons a {
+  .FilterButtons button {
     padding:3px 7px;
     display: inline;
     color:#777;
@@ -50,10 +50,10 @@
     border-radius:5px;
     margin:0 3px;
   }
-  .FilterButtons a:hover {
+  .FilterButtons button:hover {
     border-color: rgba(175, 47, 47, 0.1);
   }
-  .FilterButtons a:active {
+  .FilterButtons button:active {
     border-color: rgba(175, 47, 47, 0.2);
   }
   .FilterButtons .activeFilter {

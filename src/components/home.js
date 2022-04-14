@@ -14,6 +14,7 @@ const Home = () => {
   if(currentUser[0]) {
     userid = currentUser[0].id;
   }
+
   const listTasks = async () => {
     try {
       const alldata = await API.getTasks()
@@ -39,12 +40,7 @@ const Home = () => {
 
   // Complete Task
   const completeTodo = async (id,Tskname,completed) => {
-    let comValue = undefined;
-    if(completed === true){
-      comValue = false
-    }else {
-      comValue = true
-    }
+    let comValue = !completed;
     const arr = {
       taskName: Tskname,
       completed: comValue
@@ -61,14 +57,14 @@ const Home = () => {
   };
 
   // Remove Task
-  const removeTodo = async id => {
-    await API.deleteTask(id);
+  const removeTodo = async (id) => {
+    await API.deleteTask(id,userid);
     listTasks();
   };
 
   // Remove Completed
   const removeCompleted = async () => {
-    await API.removeCompletedTasks();
+    await API.removeCompletedTasks(userid);
     listTasks();
   };
 
@@ -111,7 +107,7 @@ const Home = () => {
       }
     });
     if(countOfTasks > 0){
-      return <a className='removeAllButton' onClick={() => removeCompleted()}>Clear Completed</a>;
+      return <button className='removeAllButton' onClick={() => removeCompleted()}>Clear Completed</button>;
     }else {
       return '';
     };
@@ -148,7 +144,7 @@ const Home = () => {
         <div className='tasksContainer'>
           <div className='todos'>
             <div className='todo-list'>
-            <a className='MarkAllButton' onClick={() => completeAllTodo()}></a>
+            <button className='MarkAllButton' onClick={() => completeAllTodo()}></button>
             <TodoForm addTodo={addTodo} />
 
               {todos.map((todo, index) => (
@@ -164,11 +160,11 @@ const Home = () => {
                 />
               ))}
             </div>
-            <a className='CountTasks'><CountDos /> items left</a>
+            <span className='CountTasks'><CountDos /> items left</span>
             <div className='FilterButtons'>
-              <a className={filters.all ? "activeFilter" : ""} onClick={() => filterTasksBy('all')}>All</a>
-              <a className={filters.active ? "activeFilter" : ""} onClick={() => filterTasksBy('active')}>Active</a>
-              <a className={filters.completed ? "activeFilter" : ""} onClick={() => filterTasksBy('completed')}>Completed</a>
+              <button className={filters.all ? "activeFilter" : ""} onClick={() => filterTasksBy('all')}>All</button>
+              <button className={filters.active ? "activeFilter" : ""} onClick={() => filterTasksBy('active')}>Active</button>
+              <button className={filters.completed ? "activeFilter" : ""} onClick={() => filterTasksBy('completed')}>Completed</button>
             </div>
             <CountCompleted />
             <div className='clear'></div>
