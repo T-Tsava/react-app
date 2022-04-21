@@ -18,8 +18,7 @@ const Home = () => {
   const listTasks = async () => {
     try {
       const alldata = await API.getTasks()
-      setTodos(alldata)
-
+      setTodos(alldata.data)
     }
     catch(error) {
       console.log("Please, try again later");
