@@ -1,28 +1,65 @@
 import axios from 'axios';
 
+//const APIURLLOCAL = 'https://node-todo-api-heroku-websmart.herokuapp.com/api/tasks/';
+const APIURL = 'http://localhost:3005/api/tasks/';
+const APIURLusers = 'http://localhost:3005/api/users/';
+
 const API = {
+    // Tasks
     getTasks: async () => {
-        const {data: toDoList} = await axios.get('http://localhost:3005/api/tasks/');
+        const {data: toDoList} = await axios.get(APIURL);
         return toDoList;
     },
-    postTask: async (addTodo) => {
-        await axios.post('http://localhost:3005/api/tasks/', {taskName : addTodo});
+    postTask: async (addTodo, userid) => {
+        await axios.post(APIURL, {taskName : addTodo, userid : userid});
     },
-    deleteTask: async (taskId) => {
-        await axios.delete('http://localhost:3005/api/tasks/' + taskId);
+    deleteTask: async (taskId, userid) => {
+        await axios.delete(APIURL + taskId,{
+            headers: {
+              Authorization: userid
+            },
+            data: {
+                userid : userid
+            }
+          });
     },
     completeAllTasks: async () => {
-        await axios.patch('http://localhost:3005/api/tasks/');
+        await axios.patch(APIURL);
     },
-    removeCompletedTasks: async () => {
-        await axios.delete('http://localhost:3005/api/tasks/');
+    removeCompletedTasks: async (userid) => {
+        await axios.delete(APIURL, {
+            headers: {
+              Authorization: userid
+            },
+            data: {
+                userid : userid
+            }
+          });
     },
     updateTask: async (taskId, updateTodoArr) => {
-        await axios.patch('http://localhost:3005/api/tasks/'+ taskId, updateTodoArr);
+        await axios.patch(APIURL + taskId, updateTodoArr);
     },
     filterTasks: async (filterName) => {
-        const {data: toDoList} = await axios.get('http://localhost:3005/api/tasks/filter/'+ filterName);
+        const {data: toDoList} = await axios.get(`${APIURL}/filter/`+ filterName);
         return toDoList;
+    },
+    // Users
+    getUsers: async () => {
+        const {data: toDoList} = await axios.get(APIURLusers);
+        return toDoList;
+    },
+    userLogin: async (loginCredentials) => {
+        const {data: userData} = await axios.post(`${APIURLusers}login/`,loginCredentials);
+        return userData;
+    },
+    postUser: async (addUser) => {
+        await axios.post(`${APIURLusers}signup/`, addUser);
+    },
+    deleteUser: async (userId) => {
+        await axios.delete(APIURLusers + userId);
+    },
+    updateUser: async (userId, updateTodoArr) => {
+        await axios.patch(APIURLusers + userId, updateTodoArr);
     },
 }
 export default API;

@@ -12,7 +12,7 @@ const RenameForm = ({todo, updateTodo }) => {
 
         const woSpaces = renameValue.replace(/\s/g, '');
         if (woSpaces.length) {
-          updateTodo(todo._id,woSpaces);
+          updateTodo(todo._id,renameValue);
         } else {
           return;
         }
